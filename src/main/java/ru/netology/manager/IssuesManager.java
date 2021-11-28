@@ -4,7 +4,6 @@ import ru.netology.domain.Issues;
 import ru.netology.repository.IssuesRepo;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.function.Predicate;
 
@@ -25,7 +24,7 @@ public class IssuesManager {
     public Collection<Issues> openedIssues() {
         Collection<Issues> result = new LinkedList<>();
         for (Issues issue: issues) {
-            if (repo.openIssue(issue) == true) {
+            if (repo.openIssue(issue)) {
                 result.add(issue);
             }
         }
@@ -35,7 +34,7 @@ public class IssuesManager {
     public Collection<Issues> closedIssues() {
         Collection<Issues> result = new LinkedList<>();
         for (Issues issue: issues) {
-            if (repo.openIssue(issue) == false) {
+            if (!repo.openIssue(issue)) {
                 result.add(issue);
             }
         }
@@ -75,7 +74,7 @@ public class IssuesManager {
     }
 
     // to open, to close Issues
-        public void newIssue(int id) {
+    public void newIssue(int id) {
         Collection<Issues> result = new LinkedList<>();
         // How to create new issue on id????????????????????
     }
@@ -83,9 +82,9 @@ public class IssuesManager {
     public void closeIssue(int id) {
         Collection<Issues> result = new LinkedList<>();
         for (Issues issue: issues) {
-            openedIssues();
-            if (issue.getId() == id) {
-                issue.isOpen();
+            if (repo.openIssue(issue) && issue.getId() == id) {
+                issue.isOpen() = false;  //???????
+                result.add(issue);
             }
         }
     }
