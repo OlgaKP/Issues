@@ -3,8 +3,7 @@ package ru.netology.manager;
 import ru.netology.domain.Issues;
 import ru.netology.repository.IssuesRepo;
 
-import java.util.Collection;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.function.Predicate;
 
 public class IssuesManager {
@@ -53,7 +52,6 @@ public class IssuesManager {
     }
 
     public Collection<Issues> filterByAuthor(String text) {
-//        Collection<Issues> issues = repo.findAll();
 //        Collection<Issues> result = new LinkedList<>();
 //        for (Issues issue: issues) {
 //            if (issue.getAuthor().contains(text)) {
@@ -61,32 +59,32 @@ public class IssuesManager {
 //            }
 //        }
 //        return result;
-        return findBy(issue -> issue.getAuthor().equalsIgnoreCase(text));
+        return findBy(issue -> issue.getAuthor().equals(text));
+//        return findBy(issue -> issue.getAuthor().equalsIgnoreCase(text));
     }
 
     public Collection<Issues> filterByAssignee(String text) {
-        return findBy(issue -> issue.getAssignee().equals(text));
+        return findBy(issue -> issue.getAssignee().contains(text));
     }
 
-    // How to use SET????????????????????
     public Collection<Issues> filterByLabel(String text) {
-        return findBy(issue -> issue.getLabel().equals(text));
+        return findBy(issue -> issue.getLabel().contains(text));
     }
 
     // to open, to close Issues
-    public void newIssue(int id) {
-        Collection<Issues> result = new LinkedList<>();
-        // How to create new issue on id????????????????????
-    }
-
-    public void closeIssue(int id) {
-        Collection<Issues> result = new LinkedList<>();
+    public void toOpenIssue(int id) {     // How to create new issue on id????????????????????
         for (Issues issue: issues) {
-            if (repo.openIssue(issue) && issue.getId() == id) {
-                issue.isOpen() = false;  //???????
-                result.add(issue);
+            if (!issue.isOpen() && issue.getId() == id) {
+                issue.setOpen(true);
             }
         }
     }
 
+    public void toCloseIssue(int id) {
+        for (Issues issue: issues) {
+            if (issue.isOpen() && issue.getId() == id) {
+                issue.setOpen(false);
+            }
+        }
+    }
 }
