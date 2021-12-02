@@ -1,27 +1,20 @@
 package ru.netology.repository;
 
-import ru.netology.domain.Issues;
+import ru.netology.domain.Issue;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 
 public class IssuesRepo {
-    private Collection<Issues> issues = new LinkedList<>();
+    private Collection<Issue> issues = new LinkedList<>();
 
-    public void save(Issues issue) {
+    public void save(Issue issue) {
         issues.add(issue);
     }
 
-    public void saveAll(Collection<Issues> issues) {
+    public void saveAll(Collection<Issue> issues) {
         this.issues.addAll(issues);
     }
 
-    public Collection<Issues> findAll() { return this.issues; }
-
-    public boolean openIssue(Issues issue) {
-        return issue.isOpen();
-    }
-
+    public Collection<Issue> findAll() { return this.issues; }
 }
